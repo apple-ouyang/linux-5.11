@@ -43,6 +43,10 @@ config ZRAM_DEF_COMP_842
 	bool "842"
 	depends on CRYPTO_842
 
+config ZRAM_DEF_COMP_LZJB
+	bool "lzjb"
+	depends on CRYPTO_LZJB
+
 endchoice
 
 config ZRAM_DEF_COMP
@@ -53,6 +57,7 @@ config ZRAM_DEF_COMP
 	default "lzo" if ZRAM_DEF_COMP_LZO
 	default "lz4hc" if ZRAM_DEF_COMP_LZ4HC
 	default "842" if ZRAM_DEF_COMP_842
+	default "lzjb" if ZRAM_DEF_COMP_LZJB
 
 config ZRAM_WRITEBACK
        bool "Write back incompressible or idle page to backing device"

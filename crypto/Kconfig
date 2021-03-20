@@ -1805,6 +1805,15 @@ config CRYPTO_ZSTD
 	help
 	  This is the zstd algorithm.
 
+config CRYPTO_LZJB
+	tristate "Lzjb compression algorithm"
+	select CRYPTO_ALGAPI
+	select CRYPTO_ACOMP2
+	select LZJB_COMPRESS
+	select LZJB_DECOMPRESS
+	help
+	  This is the lzjb algorithm.
+
 comment "Random Number Generation"
 
 config CRYPTO_ANSI_CPRNG
