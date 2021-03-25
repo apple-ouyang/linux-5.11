@@ -80,7 +80,7 @@ lzjb_compress2010(uchar_t *s_start, uchar_t *d_start, unsigned int s_len, unsign
 		hash += hash >> 9;
 		hash += hash >> 5;
 		hp = &lempel[hash & (LEMPEL_SIZE - 1)];
-		offset = (intptr_t)(src - *hp) & OFFSET_MASK;
+		offset = (uintptr_t)(src - *hp) & OFFSET_MASK;
 		*hp = (uint16_t)(uintptr_t)src;
 		cpy = src - offset;
 		if (cpy >= (uchar_t *)s_start && cpy != src &&

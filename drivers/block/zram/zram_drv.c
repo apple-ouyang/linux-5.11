@@ -2089,6 +2089,7 @@ static void destroy_devices(void)
 
 static int __init zram_init(void)
 {
+	printk(KERN_NOTICE"---Zram module inits--- \n");
 	int ret;
 
 	ret = cpuhp_setup_state_multi(CPUHP_ZCOMP_PREPARE, "block/zram:prepare",
@@ -2130,6 +2131,8 @@ out_error:
 
 static void __exit zram_exit(void)
 {
+	printk(KERN_NOTICE"---Zram module exits--- \n");
+
 	destroy_devices();
 }
 
