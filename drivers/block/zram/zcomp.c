@@ -142,6 +142,12 @@ int zcomp_compress(struct zcomp_strm *zstrm,
 	 */
 	*dst_len = PAGE_SIZE * 2;
 
+	const unsigned char *head = (const char *)src;
+	int i;
+	for(i = 0; i<PAGE_SIZE; i++){
+		printk(KERN_NOTICE "zram-page: %02x",head[i]);
+	}
+
 	return crypto_comp_compress(zstrm->tfm,
 			src, PAGE_SIZE,
 			zstrm->buffer, dst_len);
