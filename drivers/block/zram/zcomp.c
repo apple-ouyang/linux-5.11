@@ -123,6 +123,7 @@ void zcomp_stream_put(struct zcomp *comp)
 	local_unlock(&comp->stream->lock);
 }
 
+unsigned char result[4096*2+10] = {0};
 int zcomp_compress(struct zcomp_strm *zstrm,
 		const void *src, unsigned int *dst_len)
 {
@@ -141,18 +142,14 @@ int zcomp_compress(struct zcomp_strm *zstrm,
 	 * compressed buffer is too big.
 	 */
 	*dst_len = PAGE_SIZE * 2;
+	const char *page = (const char *)src;
 
-	const unsigned char *head = (const char *)src;
-	int i;
-	for(i = 0; i<PAGE_SIZE; i++){
-		printk(KERN_NOTICE "zram-page: %02x",head[i]);
-	}
-
+	print_hex_dump_bytes("", DUMP_PREFIX_NONE, page, ARRAY_SIZE(page));
+	
 	return crypto_comp_compress(zstrm->tfm,
 			src, PAGE_SIZE,
 			zstrm->buffer, dst_len);
 }
-
 int zcomp_decompress(struct zcomp_strm *zstrm,
 		const void *src, unsigned int src_len, void *dst)
 {
